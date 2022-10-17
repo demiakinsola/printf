@@ -10,5 +10,7 @@ int _printf(const char *format, ...);
 
 int _putchar(char c);
 int format_specifier(va_list ap, const char *form);
+int string_type(va_list ap);
+int char_type(va_list ap);
 
 #endif /* #define MAIN_H */

@@ -8,9 +8,9 @@
 
 int string_type(va_list ap)
 {
-	int index; = 0;` /* to loop through string */
+	int index; /* to loop through string */
 	char *string;
-	int length; /* no. of characters printed */
+	int length = 0; /* no. of characters printed */
 
 	string = va_arg(ap, char *);
 	if (string)

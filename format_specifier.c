@@ -15,23 +15,25 @@ int format_specifier(va_list ap, const char *form)
 {
 	int count, length;
 
+	length = 0;
+
 	for (count = 0; form && form[count]; count++)
 	{ /* count - loops through the forma string */
 		if (form[count] == '%')
 		{
 			count++;
-			if (form[count] = 'c')
+			if (form[count] == 'c')
 			{
 				char_type(ap);
 				length++; /* no. of characters printed */
 			}
-			if (format[count] == 's')
+			if (form[count] == 's')
 				length = string_type(ap);
-			if (format + count == '%')
+			if (form[count] == '%')
 			{
 				write(1, "%", 1);
 				length++;
-			}		
+			}
 		}
 	}
 	return (length);
