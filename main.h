@@ -1,23 +1,16 @@
-#ifndef _HOLBERTON_H_
-#define _HOLBERTON_H_
+#ifndef MAIN_H
+#define MAIN_H
 
-
-#include <stdio.h>
 #include <stdarg.h>
-#include <stdlib.h>
-#include <limits.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-typedef struct id_function
-{
-	char id;
-	int (*f)();
-} function_t;
 int _printf(const char *format, ...);
-int _putchar(char c);
-int format_specifier(va_list ap, int count, const char *form);
-int string_type(va_list ap);
-int char_type(va_list ap);
-int int_type(va_list ap);
+unsigned int str_len(const char *str);
+int print_str(const char *str);
+int print_char(char c);
+int print_num(long num);
+int format_spec(const char *str, va_list args, int i);
+int print_binary(int num);
 
-#endif /* #define MAIN_H */
+#endif
