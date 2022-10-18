@@ -21,7 +21,7 @@ int _printf(const char *format, ...)
 		if (format[count] == '%')
 		{
 			count++;
-			ret_value = format_specifier(ap, format);
+			ret_value = format_specifier(ap, count, format);
 			if (ret_value == -1)
 				return (-1);
 			total_length += ret_value;

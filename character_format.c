@@ -9,12 +9,6 @@
 int char_type(va_list ap)
 {
 	char address = va_arg(ap, int);
-
-	if (address)
-	{
 		write(1, &address, 1);
-		return (0);
-	}
-	else
-	return (-1);
+		return (1);
 }

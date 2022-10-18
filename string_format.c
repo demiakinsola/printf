@@ -13,15 +13,14 @@ int string_type(va_list ap)
 	int length = 0; /* no. of characters printed */
 
 	string = va_arg(ap, char *);
-	if (string)
+	if (!string)
 	{
-		for (index = 0; string && string[index]; index++)
-		{
-			write(1, string + index, 1);
-			length++;
-		}
-		return (length);
+		string = "(null)";
 	}
-	else
-		return (-1);
+	for (index = 0; string[index]; index++)
+	{
+		write(1, string + index, 1);
+		length++;
+	}
+	return (length);
 }

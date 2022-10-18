@@ -9,7 +9,7 @@ int _printf(const char *format, ...);
 #include <unistd.h>
 
 int _putchar(char c);
-int format_specifier(va_list ap, const char *form);
+int format_specifier(va_list ap, int count, const char *form);
 int string_type(va_list ap);
 int char_type(va_list ap);
 

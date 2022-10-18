@@ -6,35 +6,26 @@
 * to the format.
 *
 * @ap: Pointer to argument list.
+* @count: Index for the format string.
 * @form: String that contains the format specifiers.
 *
 * Return: Integer.
 */
 
-int format_specifier(va_list ap, const char *form)
+int format_specifier(va_list ap, int count, const char *form)
 {
-	int count, length;
+	int length = 0;
 
-	length = 0;
-
-	for (count = 0; form && form[count]; count++)
-	{ /* count - loops through the forma string */
-		if (form[count] == '%')
-		{
-			count++;
-			if (form[count] == 'c')
-			{
-				char_type(ap);
-				length++; /* no. of characters printed */
-			}
-			if (form[count] == 's')
-				length = string_type(ap);
-			if (form[count] == '%')
-			{
-				write(1, "%", 1);
-				length++;
-			}
-		}
+	if (!form[count])
+		return (-1);
+	if (form[count] == 'c')
+		length += char_type(ap); /* no. of characters printed */
+	if (form[count] == 's')
+		length = string_type(ap);
+	if (form[count] == '%')
+	{
+		write(1, "%", 1);
+		length++;
 	}
 	return (length);
 }
