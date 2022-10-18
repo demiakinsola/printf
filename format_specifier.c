@@ -18,14 +18,16 @@ int format_specifier(va_list ap, int count, const char *form)
 
 	if (!form[count])
 		return (-1);
-	if (form[count] == 'c')
+	else if (form[count] == 'c')
 		length += char_type(ap); /* no. of characters printed */
-	if (form[count] == 's')
+	else if (form[count] == 's')
 		length = string_type(ap);
-	if (form[count] == '%')
+	else if (form[count] == '%')
 	{
 		write(1, "%", 1);
 		length++;
 	}
+	else
+		return (-1);
 	return (length);
 }
