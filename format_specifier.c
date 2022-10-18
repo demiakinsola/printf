@@ -28,6 +28,10 @@ int format_specifier(va_list ap, int count, const char *form)
 		length++;
 	}
 	else
-		return (-1);
+	{
+		count -= 1;
+		write(1, form + count, 1);
+		length++;
+	}
 	return (length);
 }
