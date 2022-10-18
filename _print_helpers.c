@@ -1,78 +1,132 @@
 #include "main.h"
 
 /**
- * str_len - get length of a string
- * @str: string
+ * print_char - prints character
+ * @ap: argument pointer
+ * @params: the parameters struct
  *
- * Return: length of the string
+ * Return: number chars printed
  */
-
-unsigned int str_len(const char *str)
+int print_char(va_list ap, params_t *params)
 {
-	unsigned int len = 0;
+	char pad_char = ' ';
+	unsigned int pad = 1, sum = 0, ch = va_arg(ap, int);
 
-	while (str[len] != '\0')
-		len++;
-	return (len);
+	if (params->minus_flag)
+		sum += _putchar(ch);
+	while (pad++ < params->width)
+		sum += _putchar(pad_char);
+	if (!params->minus_flag)
+		sum += _putchar(ch);
+	return (sum);
 }
 
 /**
- * print_str - prints a string
- * @str: string
+ * print_int - prints integer
+ * @ap: argument pointer
+ * @params: the parameters struct
  *
- * Return: number of characters printed to stdout
+ * Return: number chars printed
  */
-
-
-int print_str(const char *str)
+int print_int(va_list ap, params_t *params)
 {
-	unsigned int count, length = 0;
-	unsigned int len = str_len(str);
+	long l;
 
-	for (count = 0; count < len; count++)
-		length += write(1, &str[count], 1);
-	return (length);
+	if (params->l_modifier)
+		l = va_arg(ap, long);
+	else if (params->h_modifier)
+		l = (short int)va_arg(ap, int);
+	else
+		l = (int)va_arg(ap, int);
+	return (print_number(convert(l, 10, 0, params), params));
 }
 
 /**
- * print_char - prints a character to stdout
- * @c: character
+ * print_string - prints string
+ * @ap: argument pointer
+ * @params: the parameters struct
  *
- * Return: number of characters printed to stdout
+ * Return: number chars printed
  */
-
-int print_char(char c)
+int print_string(va_list ap, params_t *params)
 {
-	return (write(1, &c, 1));
-}
+	char *str = va_arg(ap, char *), pad_char = ' ';
+	unsigned int pad = 0, sum = 0, i = 0, j;
 
-/**
- * print_num - prints a number to stdout
- * @num: number
- *
- * Return: number of characters printed to stdout
- */
+	(void)params;
+	switch ((int)(!str))
+		case 1:
+			str = NULL_STRING;
 
-int print_num(long num)
-{
-	unsigned int value;
-	int len = 0;
+	j = pad = _strlen(str);
+	if (params->precision < pad)
+		j = pad = params->precision;
 
-	if (num < 0)
+	if (params->minus_flag)
 	{
-		print_char('-');
-		len++;
-		num *= -1;
+		if (params->precision != UINT_MAX)
+			for (i = 0; i < pad; i++)
+				sum += _putchar(*str++);
+		else
+			sum += _puts(str);
 	}
-	value = num;
-	if (value / 10 == 0)
+	while (j++ < params->width)
+		sum += _putchar(pad_char);
+	if (!params->minus_flag)
 	{
-		print_char(value + 48);
-		len++;
-		return (len);
+		if (params->precision != UINT_MAX)
+			for (i = 0; i < pad; i++)
+				sum += _putchar(*str++);
+		else
+			sum += _puts(str);
 	}
-	len += print_num(value / 10);
-	print_char((value % 10) + 48);
-	len++;
-	return (len);
+	return (sum);
+}
+
+/**
+ * print_percent - prints string
+ * @ap: argument pointer
+ * @params: the parameters struct
+ *
+ * Return: number chars printed
+ */
+int print_percent(va_list ap, params_t *params)
+{
+	(void)ap;
+	(void)params;
+	return (_putchar('%'));
+}
+
+/**
+ * print_S - custom format specifier
+ * @ap: argument pointer
+ * @params: the parameters struct
+ *
+ * Return: number chars printed
+ */
+int print_S(va_list ap, params_t *params)
+{
+	char *str = va_arg(ap, char *);
+	char *hex;
+	int sum = 0;
+
+	if ((int)(!str))
+		return (_puts(NULL_STRING));
+	for (; *str; str++)
+	{
+		if ((*str > 0 && *str < 32) || *str >= 127)
+		{
+			sum += _putchar('\\');
+			sum += _putchar('x');
+			hex = convert(*str, 16, 0, params);
+			if (!hex[1])
+				sum += _putchar('0');
+			sum += _puts(hex);
+		}
+		else
+		{
+			sum += _putchar(*str);
+		}
+	}
+	return (sum);
 }
