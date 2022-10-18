@@ -9,7 +9,7 @@
 * @count: Index for the format string.
 * @form: String that contains the format specifiers.
 *
-* Return: Integer.
+* Return: Integer, on success. -1 on failure.
 */
 
 int format_specifier(va_list ap, int count, const char *form)
@@ -21,10 +21,10 @@ int format_specifier(va_list ap, int count, const char *form)
 	else if (form[count] == 'c')
 		length += char_type(ap); /* no. of characters printed */
 	else if (form[count] == 's')
-		length = string_type(ap);
+		length += string_type(ap);
 	else if (form[count] == '%')
 	{
-		write(1, "%", 1);
+		write(1, form + count, 1);
 		length++;
 	}
 	else

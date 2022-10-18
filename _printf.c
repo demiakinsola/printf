@@ -3,7 +3,7 @@
 /**
 * _printf - This function produces output according to a format.
 * @format: String that specifies the conversion type.
-* Return: Void.
+* Return: Total number of characters printed.
 */
 
 int _printf(const char *format, ...)
@@ -11,12 +11,14 @@ int _printf(const char *format, ...)
 	int count, ret_value, total_length;
 	va_list ap; /* ponter to argument list */
 
+	total_length = 0;
+
 	if (!format) /* if it's pointing to a null address */
 	{
 		return (-1);
 	}
 	va_start(ap, format); /* initialize argument list */
-	for (count = 0; format && format[count]; count++)
+	for (count = 0; format[count]; count++)
 	{ /* to loop through string */
 		if (format[count] == '%')
 		{

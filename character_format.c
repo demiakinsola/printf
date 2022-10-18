@@ -3,7 +3,7 @@
 /**
 * char_type - This function prints according to a character format.
 * @ap: Pointer to argument list.
-* Return: Integer.
+* Return: No. of bytes printed.
 */
 
 int char_type(va_list ap)

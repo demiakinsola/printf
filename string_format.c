@@ -3,7 +3,7 @@
 /**
 * string_type - This function prints according to the forma.
 * @ap: Pointer to argument list.
-* Return: Integer.
+* Return: No. of bytes printed.
 */
 
 int string_type(va_list ap)
