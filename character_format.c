@@ -8,7 +8,8 @@
 
 int char_type(va_list ap)
 {
-	char address = va_arg(ap, int);
-		write(1, &address, 1);
-		return (1);
+	char address;
+
+	address = va_arg(ap, int);
+	return (_putchar(address));
 }

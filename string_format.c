@@ -8,18 +8,18 @@
 
 int string_type(va_list ap)
 {
-	int index; /* to loop through string */
 	char *string;
-	int length = 0; /* no. of characters printed */
+	unsigned int length = 0; /* no. of characters printed */
 
 	string = va_arg(ap, char *);
 	if (!string)
 	{
 		string = "(null)";
 	}
-	for (index = 0; string[index]; index++)
+	while (*string)
 	{
-		write(1, string + index, 1);
+		_putchar(*string);
+		string++;
 		length++;
 	}
 	return (length);
